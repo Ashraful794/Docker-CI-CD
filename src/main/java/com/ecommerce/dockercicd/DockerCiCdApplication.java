@@ -48,6 +48,13 @@ public class DockerCiCdApplication {
 
     }
 
+    @GetMapping("/tag")
+    public String tag() {
+        log.info("Received request for /new tag endpoint");
+        return "Hello, Docker! From new api App tag";
+
+    }
+
 
 
     public static void main(String[] args) {
