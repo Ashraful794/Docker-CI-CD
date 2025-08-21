@@ -34,6 +34,13 @@ public class DockerCiCdApplication {
 
     }
 
+    @GetMapping("/version")
+    public String version() {
+        log.info("Received request for /test endpoint");
+        return "Hello, Docker! From  tes App";
+
+    }
+
 
     public static void main(String[] args) {
         SpringApplication.run(DockerCiCdApplication.class, args);
