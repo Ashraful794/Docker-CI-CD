@@ -1,4 +1,6 @@
 name: Java CI with Maven
+id: vars
+run:  echo "VERSION=v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
 
 on:
   push:
@@ -26,7 +28,7 @@ jobs:
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: ash19974/docker-ci-cd
+          image: ${{ env.VERSION }}
           tags: v1,latest
           registry: docker.io
           dockerfile: Dockerfile
