@@ -2,7 +2,8 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - 'v*.*.*'   # Only trigger when pushing tags like v1.0.0, v2.3.4
 
 jobs:
   build:
@@ -21,9 +22,11 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
-      - name: Extract project version
-        id: project_version
-        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
