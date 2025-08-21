@@ -41,6 +41,14 @@ public class DockerCiCdApplication {
 
     }
 
+    @GetMapping("/new-api")
+    public String newApi() {
+        log.info("Received request for /new Api endpoint");
+        return "Hello, Docker! From new api App";
+
+    }
+
+
 
     public static void main(String[] args) {
         SpringApplication.run(DockerCiCdApplication.class, args);
